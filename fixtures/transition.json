@@ -1,0 +1,68 @@
+{
+  "phases": [
+    {
+      "routes": [
+        {
+          "path": "/map/context",
+          "headers": {
+            "content-type": "application/json"
+          },
+          "body": "{\"version\": \"1.3.0\", \"layers\": [\"fire:hydrants\", \"fire:access\"], \"styles\": [\"\", \"night\"], \"crs\": \"EPSG:4326\", \"bbox\": [30, 120, 31, 121], \"width\": 800, \"height\": 600, \"generation\": \"view-1\"}"
+        },
+        {
+          "path": "/wms/capabilities",
+          "headers": {
+            "content-type": "application/xml"
+          },
+          "body": "<WMS_Capabilities version=\"1.3.0\"><Capability><Layer><Layer queryable=\"1\"><Name>fire:hydrants</Name><CRS>EPSG:4326</CRS></Layer><Layer queryable=\"0\"><Name>fire:access</Name></Layer></Layer></Capability></WMS_Capabilities>"
+        },
+        {
+          "path": "/wms?SERVICE=WMS&REQUEST=GetFeatureInfo&VERSION=1.3.0&CRS=EPSG:4326&BBOX=30,120,31,121&WIDTH=800&HEIGHT=600&I=400&J=300&LAYERS=fire:hydrants&QUERY_LAYERS=fire:hydrants&INFO_FORMAT=application/json",
+          "headers": {
+            "content-type": "application/json"
+          },
+          "body": "{\"type\": \"FeatureCollection\", \"features\": [{\"id\": \"hydrant-a\", \"properties\": {\"status\": \"available\"}, \"geometry\": {\"type\": \"Point\", \"coordinates\": [120.5, 30.5]}}]}"
+        },
+        {
+          "path": "/map/operations",
+          "headers": {
+            "content-type": "application/json"
+          },
+          "body": "{\"operations\": [{\"id\": \"click-1\", \"generation\": \"view-1\", \"pixel\": [400, 300], \"queryLayers\": [\"fire:hydrants\", \"fire:access\"]}]}"
+        }
+      ]
+    },
+    {
+      "routes": [
+        {
+          "path": "/map/context",
+          "headers": {
+            "content-type": "application/json"
+          },
+          "body": "{\"version\": \"1.3.0\", \"layers\": [\"fire:hydrants\", \"fire:access\"], \"styles\": [\"\", \"night\"], \"crs\": \"EPSG:4326\", \"bbox\": [30.4, 120.4, 30.6, 120.6], \"width\": 800, \"height\": 600, \"generation\": \"view-2\"}"
+        },
+        {
+          "path": "/wms/capabilities",
+          "headers": {
+            "content-type": "application/xml"
+          },
+          "body": "<WMS_Capabilities version=\"1.3.0\"><Capability><Layer><Layer queryable=\"1\"><Name>fire:hydrants</Name><CRS>EPSG:4326</CRS></Layer><Layer queryable=\"0\"><Name>fire:access</Name></Layer></Layer></Capability></WMS_Capabilities>"
+        },
+        {
+          "path": "/wms?SERVICE=WMS&REQUEST=GetFeatureInfo&VERSION=1.3.0&CRS=EPSG:4326&BBOX=30,120,31,121&WIDTH=800&HEIGHT=600&I=400&J=300&LAYERS=fire:hydrants&QUERY_LAYERS=fire:hydrants&INFO_FORMAT=application/json",
+          "headers": {
+            "content-type": "application/json"
+          },
+          "body": "{\"type\": \"FeatureCollection\", \"features\": [{\"id\": \"hydrant-a\", \"properties\": {\"status\": \"available\"}, \"geometry\": {\"type\": \"Point\", \"coordinates\": [120.5, 30.5]}}]}"
+        },
+        {
+          "path": "/map/operations",
+          "headers": {
+            "content-type": "application/json"
+          },
+          "body": "{\"operations\": [{\"id\": \"click-1\", \"generation\": \"view-1\", \"pixel\": [400, 300], \"queryLayers\": [\"fire:hydrants\", \"fire:access\"]}]}"
+        }
+      ]
+    }
+  ]
+}
