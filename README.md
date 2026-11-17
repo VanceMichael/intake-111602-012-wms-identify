@@ -17,9 +17,17 @@ npm run demo
 
 需要交互时分别运行 `npm run source` 与 `npm start`。来源默认监听本机 4310 端口，应用默认监听 4320；可用 `PORT`、`SOURCE_URL`、`DATA_DIR` 配置。`GET /preview` 获取预览，`POST /receipts` 接收当前资料，`GET /receipts` 查询凭据，`GET /objects/<摘要>` 回读原件。应用只允许配置到本机的资料服务。
 
+## 地图查询领取
+
+`GET /operations` 列出编辑器的点选操作并记录当前地图版本；`POST /operations/<操作标识>/receipts`（等价于 `POST /receipts` 并传入 `{"operation": "<标识>"}`）按该操作领取资料，可用 `{"layers": [...]}` 只领取其中若干层。
+
+领取会先固定操作发起时的地图版本、图层顺序、样式、坐标系、视口范围和像素位置，再按来源能力决定是否查询；之后编辑器继续缩放或调整图层不会改变这次领取的依据。每个图层分别记录：命中的要素数量与内容、可以查询但没有命中（空 FeatureCollection），或来源标明不可查询（LayerNotQueryable）。原始应答、操作上下文和能力文档都按内容摘要存入原件目录，凭据中保留其摘要，可随时回读。
+
+查询参数按来源能力的 WMS 版本生成：1.3.0 使用 I/J 与 CRS，1.1.1 使用 X/Y 与 SRS；EPSG:4326 在 1.3.0 下按纬度、经度轴序传输。结果只代表该像素位置的返回，不代表查询图层或整层的全量资料。若操作发起时的地图版本已经不可回查，领取会拒绝改用当前画面。
+
 ## 目录
 
-`source/` 负责资料源的发布日期和传输状态；`src/decode.mjs` 解释一份来源资料；`src/catalog.mjs` 管理不可变原件及接收凭据；`src/app.mjs` 提供查看服务。资料含义及来源控制见 `docs/资料接口.md`。
+`source/` 负责资料源的发布日期和传输状态；`src/decode.mjs` 解释来源资料与地图操作；`src/wms.mjs` 处理 WMS 版本、轴序、像素参数和地图版本留存；`src/capabilities.mjs` 解释来源能力；`src/operation.mjs` 绑定操作并领取应答；`src/catalog.mjs` 管理不可变原件及接收凭据；`src/app.mjs` 提供查看服务。资料含义及来源控制见 `docs/资料接口.md`。
 
 ## 容器
 

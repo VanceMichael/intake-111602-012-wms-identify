@@ -28,7 +28,7 @@
           "headers": {
             "content-type": "application/json"
           },
-          "body": "{\"operations\": [{\"id\": \"click-1\", \"generation\": \"view-1\", \"pixel\": [400, 300], \"queryLayers\": [\"fire:hydrants\", \"fire:access\"]}]}"
+          "body": "{\"operations\": [{\"id\": \"click-1\", \"generation\": \"view-1\", \"pixel\": [400, 300], \"queryLayers\": [\"fire:hydrants\", \"fire:access\"]}, {\"id\": \"click-2\", \"generation\": \"view-1\", \"pixel\": [1, 1], \"queryLayers\": [\"fire:hydrants\", \"fire:access\"]}]}"
         }
       ]
     }
